@@ -93,9 +93,9 @@ class LoginScreen: UIView {
         tf.layer.cornerRadius = 12
         tf.layer.borderWidth = 1.0
         tf.layer.borderColor = UIColor.white.cgColor
-       
+        
         return tf
-
+        
     }()
     
     
@@ -144,7 +144,40 @@ class LoginScreen: UIView {
         
         return view
     }()
-   
+    
+    
+    
+    lazy var signInMetamaskView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 8
+        view.layer.borderColor = UIColor(red: 207/255, green: 0/255, blue: 192/255, alpha: 1.0).cgColor
+        view.layer.borderWidth = 1
+        
+        return view
+    }()
+    
+    
+    lazy var signInMetamaskImageView: UIView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(named: "logo")
+        return image
+        
+    }()
+    
+    
+    lazy var signInMetamaskLabel: UILabel = {
+        let label =  UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "Entrar com a Metamask"
+        return label
+    }()
+    
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -163,6 +196,9 @@ class LoginScreen: UIView {
         self.addSubview(self.loginButton)
         self.addSubview(self.lineWiew)
         
+        self.addSubview(self.signInMetamaskView)
+        self.signInMetamaskView.addSubview(self.signInMetamaskImageView)
+        self.signInMetamaskView.addSubview(self.signInMetamaskLabel)
         self.configConstraints()
         
     }
@@ -172,7 +208,7 @@ class LoginScreen: UIView {
     }
     
     
-    private func configConstraints () {
+    private func configConstraints () { 
         
         let _bgConstraint: [NSLayoutConstraint] = [
             self.subImageView.leadingAnchor.constraint(equalTo:  self.leadingAnchor),
@@ -221,11 +257,11 @@ class LoginScreen: UIView {
         
         
         let _recoveryPasswordButtonConstraint: [NSLayoutConstraint] =  [
-            self.recoveryPasswordButton.topAnchor.constraint(equalTo: self.passwordTextField.bottomAnchor, constant: 32),
+            self.recoveryPasswordButton.topAnchor.constraint(equalTo: self.passwordTextField.bottomAnchor, constant: 9),
             self.recoveryPasswordButton.trailingAnchor.constraint(equalTo: self.loginTextField.trailingAnchor),
             self.recoveryPasswordButton.heightAnchor.constraint(equalToConstant: 16)
         ]
-       
+        
         
         let _logginButtonConstraint: [NSLayoutConstraint] =  [
             self.loginButton.topAnchor.constraint(equalTo: self.recoveryPasswordButton.bottomAnchor, constant: 36),
@@ -239,9 +275,7 @@ class LoginScreen: UIView {
             self.subLoginview.trailingAnchor.constraint(equalTo: self.loginButton.trailingAnchor),
             self.subLoginview.topAnchor.constraint(equalTo: self.loginButton.topAnchor),
             self.subLoginview.bottomAnchor.constraint(equalTo: self.loginButton.bottomAnchor),
-         
-            
-        ]
+       ]
         
         
         let _lineViewConstraint: [NSLayoutConstraint] =  [
@@ -249,10 +283,25 @@ class LoginScreen: UIView {
             self.lineWiew.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 64),
             self.lineWiew.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -64),
             self.lineWiew.heightAnchor.constraint(equalToConstant: 0.5)
-
-
         ]
         
+        
+        
+        let _metamaskConstraint : [NSLayoutConstraint] = [
+            self.signInMetamaskView.topAnchor.constraint(equalTo: self.lineWiew.bottomAnchor,constant: 48),
+            self.signInMetamaskView.leadingAnchor.constraint(equalTo: self.loginButton.leadingAnchor),
+            self.signInMetamaskView.trailingAnchor.constraint(equalTo: self.loginButton.trailingAnchor),
+            self.signInMetamaskView.heightAnchor.constraint(equalToConstant: 41),
+            
+            self.signInMetamaskImageView.leadingAnchor.constraint(equalTo: self.signInMetamaskView.leadingAnchor,constant: 53),
+            self.signInMetamaskImageView.centerYAnchor.constraint(equalTo: self.signInMetamaskView.centerYAnchor),
+            self.signInMetamaskImageView.heightAnchor.constraint(equalToConstant: 20),
+            self.signInMetamaskImageView.widthAnchor.constraint(equalToConstant: 20),
+            
+            
+            self.signInMetamaskLabel.leadingAnchor.constraint(equalTo: self.signInMetamaskImageView.trailingAnchor,constant: 17),
+            self.signInMetamaskLabel.centerYAnchor.constraint(equalTo: self.signInMetamaskView.centerYAnchor)
+        ]
         
         let allConstraint: [NSLayoutConstraint] =   _bgConstraint +
         _logoConstraint +
@@ -262,9 +311,9 @@ class LoginScreen: UIView {
         _passwordextFieldConstraint +
         _recoveryPasswordButtonConstraint +
         _logginButtonConstraint +
-        _subLoginConstraint
-        +
-        _lineViewConstraint
+        _subLoginConstraint +
+        _lineViewConstraint +
+        _metamaskConstraint
         
         NSLayoutConstraint.activate(allConstraint)
     }
