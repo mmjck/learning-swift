@@ -3,5 +3,6 @@
     <pages>
         <page name='array'/>
         <page name='basics'/>
+        <page name='functions'/>
     </pages>
 </playground>
